@@ -149,7 +149,7 @@ automatically run in the background and lint your code. Every time you hit
 Now all the code you write follows the same pattern, which makes it easy to 
 collaborate on. 🐶
 
-**Resources**
+### Resources
  * [Standard JS official website](https://standardjs.com/)
  * [JavaScript Standard Style in VS Marketplace](https://marketplace.visualstudio.com/items?itemName=chenxsan.vscode-standardjs)
 
@@ -480,5 +480,103 @@ Done in 1.59s.
 
 Looks like we're ready for some Redux coding! 🦁
 
-**Resources**
+### Resources
  * [Jest official documentation](https://facebook.github.io/jest/docs/en/getting-started.html)
+
+### Extras
+
+`Jest` can be run in a watch mode. This way it reruns the tests every time you save the file. 
+It's really helpful while doing TDD or refactoring and `jest-cli` comes with a feature heavily 
+supporting this style of work, i.e. it can scope down the watched tests to a certain pattern. 
+
+To see this in action split the test file into two separate ones, e.g. `src/index.test.js` and 
+`src/async.test.js`:
+
+```javascript
+// index.test.js
+import { pureFunction, asyncFunction } from './index'
+
+describe('01. Jest--pure', () => {
+  it('should cut & reverse a list', () => {
+    const aList = [ 4, 3, 2, 1 ]
+    const expected = [ 1, 2, 3 ]
+
+    const result = pureFunction(aList)
+
+    expect(result).toEqual(expected)
+  })
+})
+
+// async.test.js
+import { asyncFunction } from './index'
+
+describe('01. Jest--async', () => {
+  it('should resolve to DONE', () => {
+    const resolutionDelay = 8 * 1000
+    const returnedPromise = asyncFunction(resolutionDelay)
+
+    expect(returnedPromise).resolves.toBe('DONE')
+  })
+})
+```
+
+Now run test with `--watch` option:
+
+```bash
+[js-stack-tutorail] $ yarn test -- --watch
+ PASS  src/index.test.js
+ PASS  src/async.test.js
+
+Test Suites: 2 passed, 2 total
+Tests:       3 passed, 3 total
+Snapshots:   0 total
+Time:        0.115s, estimated 1s
+Ran all test suites.
+----------|----------|----------|----------|----------|----------------|
+File      |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+----------|----------|----------|----------|----------|----------------|
+All files |      100 |      100 |      100 |      100 |                |
+ index.js |      100 |      100 |      100 |      100 |                |
+----------|----------|----------|----------|----------|----------------|
+
+Watch Usage: Press w to show more.
+```
+
+Now hit `p` and type `async`:
+
+```bash
+Pattern Mode Usage
+ › Press Esc to exit pattern mode.
+ › Press Enter to apply pattern to all filenames.
+
+ pattern › async
+
+ Pattern matches 1 file
+ src/async.test.js› src/async.test.js
+ ```
+
+`jest-cli` will show you an interactive preview of the folders and files matching
+your pattern. You can use regular expressions to make it smart and after the
+filtering of the tests hits your expectations just hit `Enter` to confirm it. 
+In our example, starting from now on only async.test.js will be rerun on every
+file save. 
+
+```bash
+ PASS  src/async.test.js
+  01. Jest
+    ✓ should resolve to DONE (2ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        0.084s, estimated 1s
+Ran all test suites matching /async/.
+----------|----------|----------|----------|----------|----------------|
+File      |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+----------|----------|----------|----------|----------|----------------|
+All files |       80 |      100 |    66.67 |       80 |                |
+ index.js |       80 |      100 |    66.67 |       80 |             18 |
+----------|----------|----------|----------|----------|----------------|
+
+Watch Usage: Press w to show more.
+```
