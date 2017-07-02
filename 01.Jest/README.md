@@ -1,8 +1,6 @@
-01. Jest
-========
+# 01. Jest
 
-01 Transpiler & ES6 Support
-----------------------------
+## 01 Transpiler & ES6 Support
 Newest JavaScript features are yet not implemented in most of the browsers. 
 For this reason we have to transpile our ES6 code into ES5 compatibile one, 
 so all the browsers and environments support it. 
@@ -103,12 +101,55 @@ SyntaxError: Unexpected token import
 
 Not really. 🐈
 
+## 02 Linter
 
-02 Linter
----------
+> Programs must be written for people to read, and only incidentally for machines to execute.
+> —Hal Abelson
 
-03 Documentation
-----------------
+`Standard` comes with no extra configuration costs. Its defaults are widely 
+accepted in teh community and make it plug & play kind of tool. 
 
-04 Test framework
------------------
+```bash
+$ yarn add --dev standard
+```
+
+We'll make it a first step of our `test` flow. 
+
+```javascript
+// package.json
+{
+  // other settings
+  "scripts": {
+    "start": "babel-node src",
+    "test": "standard"
+  }
+  // other settings
+}
+```
+
+`Standard` has a great support in VS Code. Just hit `Ctrl+P`, paste 
+`ext install vscode-standardjs`, hit `Enter` and install 
+`JavaScript Standard Style` plugin. To make it really funky
+turn it's `autoFixOnSave` option on adding following snippet to your
+VS Code settings file:
+
+```javascript
+// vscode settings
+{
+  // other settings
+  "standard.autoFixOnSave": true
+  // other settings  
+}
+```
+
+After reloading the Window (F1 > Reload > Enter) `Standard` will 
+automatically run in the background and lint your code. Every time you hit 
+`Ctrl+S` it will do most obvious code cleanup (indentation etc.).
+
+**Resources**
+ * [Standard JS official website](https://standardjs.com/)
+ * [JavaScript Standard Style in VS Marketplace](https://marketplace.visualstudio.com/items?itemName=chenxsan.vscode-standardjs)
+
+## 03 Documentation
+
+## 04 Test framework
