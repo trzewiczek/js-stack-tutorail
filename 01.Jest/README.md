@@ -99,7 +99,7 @@ SyntaxError: Unexpected token import
     at startup (bootstrap_node.js:150:9)
 ```
 
-Not really. 🐈
+Not really. 🐱
 
 ## 02 Linter
 
@@ -146,10 +146,75 @@ After reloading the Window (F1 > Reload > Enter) `Standard` will
 automatically run in the background and lint your code. Every time you hit 
 `Ctrl+S` it will do most obvious code cleanup (indentation etc.).
 
+Now all the code you write follows the same pattern, which makes it easy to 
+collaborate on. 🐶
+
 **Resources**
  * [Standard JS official website](https://standardjs.com/)
  * [JavaScript Standard Style in VS Marketplace](https://marketplace.visualstudio.com/items?itemName=chenxsan.vscode-standardjs)
 
 ## 03 Documentation
+
+Documentation is under investigation. Following some cool projects I just go with `esdoc`
+with no extra setup. This will change in future. 
+
+Install `esdoc`:
+
+```bash
+$ yarn add --dev esdoc
+```
+
+Tell it where to find code and where to output the documentation:
+
+```javascript
+// .esdoc.json
+{
+  "source": "src",
+  "destination": "doc"
+}
+```
+
+Add a new `script` into your `package.json` file, so we can use `yarn` to 
+generate documentation. 
+
+```javascript
+// package.json
+{
+  // other settings
+  "scripts": {
+    "start": "babel-node src",
+    "test": "standard",
+    "doc": "esdoc"
+  },
+  "standard": {
+    "ignore": [
+      "doc/"
+    ]
+  }
+  // other settings
+}
+```
+
+Generate documentation with:
+
+```bash
+$ yarn doc
+```
+
+In VS Code exclude `doc` folder in search settings. 
+
+```javascript
+// vscode settings
+{
+  // other settings
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/doc": true
+  }
+  // other settings
+}
+```
+
+With transpiller, linter and documentation generator we're finally ready to go! 🐹
 
 ## 04 Test framework
