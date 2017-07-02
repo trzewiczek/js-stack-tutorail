@@ -9,6 +9,15 @@
     "test": "standard && jest --coverage",
     "doc": "esdoc"
   },
+  "standard": {
+    "env": [
+      "jest"
+    ],
+    "ignore": [
+      "doc/",
+      "coverage/"
+    ]
+  },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-jest": "^20.0.3",

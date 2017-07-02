@@ -1,4 +1,3 @@
-/* globals describe it expect */
 import { pureFunction, asyncFunction } from './index'
 
 describe('01. Jest', () => {
@@ -12,7 +11,8 @@ describe('01. Jest', () => {
   })
 
   it('should resolve to DONE', () => {
-    const returnedPromise = asyncFunction(1000)
+    const resolutionDelay = 8 * 1000
+    const returnedPromise = asyncFunction(resolutionDelay)
 
     expect(returnedPromise).resolves.toBe('DONE')
   })

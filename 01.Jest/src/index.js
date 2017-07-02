@@ -19,6 +19,10 @@ export const pureFunction = (list) => {
 }
 
 /**
+ * @example <caption>asyncFunction in action</caption>
+ * const promise = asyncFunction(1000)
+ * promise.then(action => dispatch({ type: action }))
+ *
  * @param {number} timeout Time of the promise resolution delay
  * @return {Promise<string>} Promise resolves to a string 'DONE'
  */
