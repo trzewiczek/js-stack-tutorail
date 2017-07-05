@@ -18,11 +18,11 @@ First, let's start with a few facts about key Redux elements that will let you
 better understand how things talk one to another within Redux realm.
 
 **Store**
- * a single JavaScript object wrapped by some slim redux layer
+ * a single JavaScript object (wrapped by some invisible `redux` goodness)
  * a single source of truth about the application and its state
  * keeps both data state (i.e. list of todos) and app state (i.e. sort order of todos)
- * never mutated, always replaced with a new object via `reducer`
- * can dispatch events (a.k.a actions)
+ * never mutated, always replaced with a new object via `reducer` (see below)
+ * can dispatch events (a.k.a actions—see below)
 
 ```javascript
 // store shape example
@@ -76,10 +76,11 @@ better understand how things talk one to another within Redux realm.
 **Reducer**
  * a [pure function](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-pure-function-d1c076bec976) 
    that transforms current state into next state using action payload
- * it's signature is: `(state = <default state>, action) => newState`
+ * it's signature is: `(state = <default state>, action) => state`
  * [called every time store dispatches an action](https://github.com/reactjs/redux/blob/master/src/createStore.js#L170)
- * if default value for state argument is defined the value will initialize the state 
-   when the application first starts (due to dummy action triggered during state registration)
+ * if default value for state argument is defined the value will initialize the 
+   state when the application first starts (due to dummy action triggered during 
+   `store` registration)
  * by convention `reducer`'s body is a single `switch` statement
  * if triggered by an event (`action.type`) it doesn't understand, returns `state` untouched
 
@@ -113,19 +114,19 @@ const reducer = (state = { todos: [], sort: { key: 'id', order: 'ASC' } }, actio
 }
 ```
 
-There are some other interesting concepts in Redux we will learn later into tutorial 
+There are some other interesting concepts in Redux we will learn later into tutorial. 
 These three though create the core of what Redux is: 
 
- * a single store, `{ todos: ['Learn Yarn'] }`
- * dispatches actions, `{ type: 'ADD_TODO', text: 'Learn Redux' }`
- * which trigger reducers, `(state = { todos: [] }, action) => state`
- * responsible to transform the store, `case 'ADD_TODO': return { todos: [...state.todos, action.text ] }`
+ * a single `store`, `{ todos: ['Learn Yarn'] }`
+ * dispatches `actions`, `{ type: 'ADD_TODO', text: 'Learn Redux' }`
+ * which trigger pure `reducers`, `(state = { todos: [] }, action) => state`
+ * responsible for transforming the store, `case 'ADD_TODO': return { todos: [...state.todos, action.text ] }`
  * to its new shape, `{ todos: ['Learn Yarn', 'Learn Redux'] }`
  
 That's it. 
 
 ### 🛠 Basic setup
-We start with installing `redux`:
+To the code! We start with installing `redux`:
 
 ```bash
 [js-stack-tutorail]$ yarn add redux
@@ -134,11 +135,8 @@ We start with installing `redux`:
 Congratulations! We're done with setup. 🏆
 
 ### 🚀 In action
-Before we do some real coding let's use the example above to test if `redux` 
-really works. 
-
-We've said `reducer` is a pure function, which makes it so easy to test. Let's 
-do it then. 
+Before we do some real coding let's use the example from last bullet list 
+above to test if `redux` really works this way. 
 
 Create a `src` folder and put the unit test file inside:
 
@@ -147,14 +145,15 @@ Create a `src` folder and put the unit test file inside:
 [js-stack-tutorail]$ touch src/index.test.js
 ```
 
-From three elements mentioned above—store, action, reducer—it is `reducer` that
+From three elements mentioned above—store, action and reducer—it is `reducer` that
 actually does something (i.e. transforms old state into new state with action 
-payload). We'll start with it then. 
+payload). We'll start with it then. Good news is, it's a pure function which 
+makes it trivial to test. Let's collect the spec!
 
 Earlier we've mentioned four assumptions about each `reducer`:
 
  1. it initializes the state with a default value if no state is defined yet
- 2. it creates new state based on old one and action payload
+ 2. it creates new state based on both old state and action payload
  3. it doesn't change the old state
  4. it doesn't affect the state at all if it doesn't recognize the `action.type`
 
