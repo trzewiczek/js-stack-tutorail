@@ -1,11 +1,18 @@
 {
   "name": "00.Environment",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Environment initial setup",
+  "author": "Krzysztof Trzewiczek",
   "license": "MIT",
   "scripts": {
     "start": "babel-node src",
-    "test": "standard --verbose | snazzy"
+    "test": "standard --verbose | snazzy",
+    "doc": "esdoc"
+  },
+  "standard": {
+    "ignore": [
+      "doc/"
+    ]
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
