@@ -208,41 +208,6 @@ All files |      100 |      100 |      100 |      100 |                |
 Done in 4.67s.
 ```
 
-Finally, let's generate some API documentation for our small module:
-
-```bash
-[js-stack-tutorail] $ yarn doc
-yarn doc v0.24.6
-$ esdoc
-parse: /home/trzewiczek/code/js-stack-tutorail/01.Jest/src/index.js
-parse: /home/trzewiczek/code/js-stack-tutorail/01.Jest/src/index.test.js
-resolve: extends chain
-resolve: necessary
-resolve: access
-resolve: unexported identifier
-resolve: undocument identifier
-resolve: duplication
-resolve: ignore
-resolve: link
-resolve: markdown in description
-resolve: test relation
-output: badge.svg
-output: identifiers.html
-output: index.html
-output: function/index.html
-output: file/src/index.js.html
-output: file/src/index.test.js.html
-output: ./css
-output: ./script
-output: ./image
-output: script/search_index.js
-output: source.html
-==================================
-Coverage: 100% (2/2)
-==================================
-Done in 1.59s.
-```
-
 Looks like we're ready for some Redux coding! 🦁
 
 ### 📖 Resources
