@@ -114,8 +114,15 @@ const reducer = (state = { todos: [], sort: { key: 'id', order: 'ASC' } }, actio
 ```
 
 There are some other interesting concepts in Redux we will learn later into tutorial 
-These three though create the core of what Redux is: a single store that dispatches actions
-which trigger reducers responsible to transform the store to its new shape. That's it. 
+These three though create the core of what Redux is: 
+
+ * a single store, `{ todos: ['Learn Yarn'] }`
+ * dispatches actions, `{ type: 'ADD_TODO', text: 'Learn Redux' }`
+ * which trigger reducers, `(state = { todos: [] }, action) => state`
+ * responsible to transform the store, `case 'ADD_TODO': return { todos: [...state.todos, action.text ] }`
+ * to its new shape, `{ todos: ['Learn Yarn', 'Learn Redux'] }`
+ 
+That's it. 
 
 ### 🛠 Basic setup
 ⌚
