@@ -48,28 +48,27 @@ better understand how things talk one to another within Redux realm.
 ```javascript
 // minimal action example
 {
-  type: 'FILE_UPLOAD_FINISHED'
+  type: 'DELETE_ALL_TODOS'
 }
 
 // slightly bigger example
 {
-  type: 'FILE_UPLOAD_FINISHED',
-  status: 'SUCCESS',
-  timestamp: 1493826516796,
-  uri: '/wedding_collection/DSC561818.jpg'
+  type: 'ADD_TODO',
+  todoId: 5,
+  todoText: 'Implement Trello in Redux'
 }
 
 // even bigger example
 {
-  type: 'FILE_UPLOAD_FINISHED',
-  import: {
+  type: 'ADD_TODO',
+  todo: {
+    id: 5,
+    text: 'Implement Trello in Redux'
+  },
+  todoList: 'JS Stack Tutorail',
+  meta: {
     status: 'SUCCESS',
     timestamp: 1493826516796
-  },
-  image: {
-    uri: '/wedding_collection/c3c71757234f026213839dae95f00556.jpg',
-    thumb: '/wedding_collection/thumbs/c3c71757234f026213839dae95f00556.jpg',
-    name: 'DSC7251991.jpg'
   }
 }
 ```
@@ -114,8 +113,9 @@ const reducer = (state = { todos: [], sort: { key: 'id', order: 'ASC' } }, actio
 }
 ```
 
-**Middleware**
-⌚
+There are some other interesting concepts in Redux we will learn later into tutorial 
+These three though create the core of what Redux is: a single store that dispatches actions
+which trigger reducers responsible to transform the store to its new shape. That's it. 
 
 ### 🛠 Basic setup
 ⌚
