@@ -177,16 +177,21 @@ import of the polyfill into the code base.
 > —Hal Abelson, co-author of 'Structure and Interpretation of Computer Programs'
 
 ### 🛠 Basic setup
-`Standard` comes with no extra configuration costs. Its defaults are widely
-accepted in the community and make it plug & play kind of tool. 
+`Standard` comes with no extra configuration costs. Its defaults are widely 
+accepted in the community and make it 'Plug & Play' kind of tool. Except the
+output...By default `standard` output 'leaves some area for improvements' and 
+is not easy to read. 
 
-It's a developer tool, so we install it as a `--dev` dependency:
+Instead we'll use `snazzy`, a simple and clean `standard` output formatter. 
+
+Both are developer utilities, so we'll install them as `--dev` dependencies:
 
 ```bash
-[js-stack-tutorail] $ yarn add --dev standard
+[js-stack-tutorail] $ yarn add --dev standard snazzy
 ```
 
-We'll make it a first step of our `test` flow.
+We'll use `standard` (with `snazzy` formatter) as the first step in our `test` 
+flow by adding it into `test` section of our `scripts` in `package.json`:
 
 ```javascript
 // package.json
@@ -194,16 +199,21 @@ We'll make it a first step of our `test` flow.
   // other settings
   "scripts": {
     "start": "babel-node src",
-    "test": "standard"
+    "test": "standard --verbose | snazzy"
   }
   // other settings
 }
 ```
 
-`Standard` has a great support in VS Code. Just hit `Ctrl+P`, paste
-`ext install vscode-standardjs`, hit `Enter` and install
-`JavaScript Standard Style` plugin. To make it really funky
-turn its `autoFixOnSave` option on adding following snippet to your
+We use `--verbose` output to let `snazzy` inform us about the rule each error
+and warning falls upon making it easier to work with `standard` configuration.
+
+Before we continue let's set up our IDE, so it helps us keep the `standard`!
+Good for us `standard` has a great support in VS Code. Just hit `Ctrl+P`, 
+paste `ext install vscode-standardjs`, hit `Enter` and install
+`JavaScript Standard Style` plugin. Easy. 
+
+To make it really funky set its `autoFixOnSave` option to `true` in your 
 VS Code settings file:
 
 ```javascript
@@ -215,12 +225,16 @@ VS Code settings file:
 }
 ```
 
-After reloading the Window (`F1 > reload > Enter`) `Standard` will
-automatically run in the background and lint your code. Every time you hit
-`Ctrl+S` it will do most obvious code cleanup (indentation etc.).
+After reloading the Window (`F1 > reload > Enter`) `standard` will
+not only automatically run in the background and lint your code on the fly,
+but as well it will do most obvious code cleanup (indentation etc.) every 
+time you hit `Ctrl+S` (🙋‍♀️ even if you have an auto-save option tunred on
+you still have to hit `Ctrl+S` to trigger `standard.autoFixOnSave`). 
+
 
 ### 🚀 In action
-Before, we created a `src/index.js` file with the following snippet inside:
+Earlier in the tutorial we've created a `src/index.js` file with the 
+following snippet inside:
 
 ```javascript
 import fs from 'fs'
@@ -235,9 +249,13 @@ Let's use it to test if `standard` actually works:
 ```bash
 [js-stack-tutorail]$ yarn test
 yarn test v0.24.6
-$ standard
+$ standard --verbose | snazzy
 standard: Use JavaScript Standard Style (https://standardjs.com)
-  /home/trzewiczek/code/js-stack-tutorail/00.Environment/src/index.js:3:25: Expected error to be handled.
+
+/home/trzewiczek/code/js-stack-tutorail/00.Environment/src/index.js
+  3:25  error  Expected error to be handled  handle-callback-err
+
+✖ 1 problem
 error Command failed with exit code 1.
 ```
 
@@ -260,15 +278,16 @@ fs.realpath('.babelrc', (err, path) => {
 ```bash
 [js-stack-tutorail]$ yarn test
 yarn test v0.24.6
-$ standard
+$ standard --verbose | snazzy
 Done in 0.96s.
 ```
 
-Smoothly and gently!
+Smooth and gentle!
 
 ### 📖 Resources
  * [Standard JS official website](https://standardjs.com/)
  * [JavaScript Standard Style in VS Marketplace](https://marketplace.visualstudio.com/items?itemName=chenxsan.vscode-standardjs)
+ * [Snazzy formatter](https://github.com/standard/snazzy)
 
 
 ### 🔍 Extras

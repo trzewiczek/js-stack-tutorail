@@ -5,12 +5,13 @@
   "license": "MIT",
   "scripts": {
     "start": "babel-node src",
-    "test": "standard"
+    "test": "standard --verbose | snazzy"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-env": "^1.6.0",
     "esdoc": "^0.5.2",
+    "snazzy": "^7.0.0",
     "standard": "^10.0.2"
   }
 }
