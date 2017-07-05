@@ -8,9 +8,6 @@
 >
 > —[Redux Official Website](http://redux.js.org/)
 
-A few facts that might help imagine why Redux are:
- * there is a store which is actually a single JavaScript object 
-
 **Store**
  * a single JavaScript object wrapped by some slim redux layer
  * a single source of truth about the FE application and its state
