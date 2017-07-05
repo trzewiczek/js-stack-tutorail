@@ -348,8 +348,7 @@ configuration pattern shown in the next chapter of the tutorial.
 
 ## 03 Documentation
 
-Documentation is under investigation. Following some cool projects I just go with `esdoc`
-with no extra setup. This will change in future.
+🏗️ This section is under development!
 
 ### 🛠 Basic setup
 Install `esdoc`:
@@ -429,5 +428,6 @@ Your project structure should look like so:
 With transpiler, linter and documentation generator we're finally ready to go!
 
 ### 📖 Resources 
+ * [ESDoc official website](https://esdoc.org/)
 
 ### 🔍 Extras
