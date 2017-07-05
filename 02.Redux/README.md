@@ -257,7 +257,7 @@ export const reducer = (state = { todos: [] }, action) => {
 }
 ```
 
-Gratification time:
+Gratification time 🎉
 
 ```bash
 [js-stack-tutorail]$ yarn test
@@ -284,7 +284,9 @@ All files |      100 |      100 |      100 |      100 |                |
 Done in 3.48s.
 ```
 
-And voila! Reducer works fine. But where's `redux`?
+And voila! Reducer works fine. 🎂
+
+But wait, where's `redux`?
 
 ### 📖 Resources
 ⌚
