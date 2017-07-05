@@ -208,8 +208,51 @@ automatically run in the background and lint your code. Every time you hit
 `Ctrl+S` it will do most obvious code cleanup (indentation etc.).
 
 ### 🚀 In action
-Now all the code you write follows the same pattern, which makes it easy to
-collaborate on. 🐶
+Before, we created a `src/index.js` file with the following snippet inside:
+
+```javascript
+import fs from 'fs'
+
+fs.realpath('.babelrc', (err, path) => {
+  console.log(`>>> ${path}`)
+})
+```
+
+Let's use it to test if `standard` actually works:
+
+```bash
+[js-stack-tutorail]$ yarn test
+yarn test v0.24.6
+$ standard
+standard: Use JavaScript Standard Style (https://standardjs.com)
+  /home/trzewiczek/code/js-stack-tutorail/00.Environment/src/index.js:3:25: Expected error to be handled.
+error Command failed with exit code 1.
+```
+
+`standard` is a smart tool reaching far beyond missing commas and single
+quotes. Here it reminds us that the `error` scenario is not covered by the
+callback we provided to `fs.realpath` function. Let's fix it:
+
+```javascript
+import fs from 'fs'
+
+fs.realpath('.babelrc', (err, path) => {
+  if (err) {
+    console.error(`!!! ${err}`)
+  }
+  console.log(`>>> ${path}`)
+})
+
+```
+
+```bash
+[js-stack-tutorail]$ yarn test
+yarn test v0.24.6
+$ standard
+Done in 0.96s.
+```
+
+Smoothly and gently!
 
 ### 📖 Resources
  * [Standard JS official website](https://standardjs.com/)

@@ -1,0 +1,16 @@
+{
+  "name": "00.Environment",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "babel-node src",
+    "test": "standard"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "esdoc": "^0.5.2",
+    "standard": "^10.0.2"
+  }
+}
