@@ -228,7 +228,7 @@ VS Code settings file:
 After reloading the Window (`F1 > reload > Enter`) `standard` will
 not only automatically run in the background and lint your code on the fly,
 but as well it will do most obvious code cleanup (indentation etc.) every 
-time you hit `Ctrl+S` (🙋‍♀️ even if you have an auto-save option tunred on
+time you hit `Ctrl+S` (💣 even if you have an auto-save option turned on
 you still have to hit `Ctrl+S` to trigger `standard.autoFixOnSave`). 
 
 
