@@ -1,5 +1,17 @@
 # 00. Environment
 
+## 00 node & yarn
+In this tutorial we will be using `node` and `yarn`. Go there and install them.
+When ready run this:
+
+```bash
+$ mkdir js-stack-tutorail
+$ cd js-stack-tutorail
+$ yarn init -y
+```
+
+You're ready!
+
 ## 01 Transpiler & ES6 Support
 
 ### 🛠 Basic setup
