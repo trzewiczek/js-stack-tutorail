@@ -1,3 +1,5 @@
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
 # 00. Environment
 
 ## 00 node & yarn
@@ -206,7 +208,7 @@ flow by adding it into `test` section of our `scripts` in `package.json`:
 ```
 
 We use `--verbose` output to let `snazzy` inform us about the rule each error
-and warning falls upon making it easier to work with `standard` configuration.
+and warning falls upon making it easier to tweak `standard` behavior.
 
 Before we continue let's set up our IDE, so it helps us keep the `standard`!
 Good for us `standard` has a great support in VS Code. Just hit `Ctrl+P`, 
@@ -225,11 +227,13 @@ VS Code settings file:
 }
 ```
 
-After reloading the Window (`F1 > reload > Enter`) `standard` will
-not only automatically run in the background and lint your code on the fly,
-but as well it will do most obvious code cleanup (indentation etc.) every 
-time you hit `Ctrl+S` (💣 even if you have an auto-save option turned on
-you still have to hit `Ctrl+S` to trigger `standard.autoFixOnSave`). 
+After reloading the Window (`F1 > reload > Enter`) `standard` will not only 
+automatically run in the background and lint your code on the fly, but as well
+it will do most obvious code cleanup (indentation etc.) every time you hit 
+`Ctrl+S`. 
+
+📝 Even if you have an auto-save option turned on you still have to hit 
+`Ctrl+S` to trigger `standard.autoFixOnSave`. 
 
 
 ### 🚀 In action
@@ -291,6 +295,55 @@ Smooth and gentle!
 
 
 ### 🔍 Extras
+`Standard` follows quite a rigorous approach: [no overwriting the rules](https://standardjs.com/index.html#i-disagree-with-rule-x-can-you-change-it). 
+
+> The whole point of standard is to save you time by avoiding 
+> [bikeshedding](https://www.freebsd.org/doc/en/books/faq/misc.html#bikeshed-painting) 
+> about code style. 
+> 
+> [Standard JS FAQ](https://standardjs.com/index.html#i-disagree-with-rule-x-can-you-change-it)
+
+And then its authors add:
+
+> Pro tip: Just use `standard` and move on. There are actual real problems 
+> that you could spend your time solving! :P
+
+It still let you avoid some warnings if you explicitly ask it for:
+
+> JavaScript Standard Style uses ESLint under-the-hood and you can hide warnings
+> as you normally would if you used ESLint directly.
+
+```javascript
+let str1 ="Turn off all rules on this line" // eslint-disable-line 
+let str2 = "Turn only specific rule on this line" // eslint-disable-line quotes
+```
+
+Important part of working with `standard` are `globals`. Some of them may not be
+recognized by `standard`, so we have to make it understand what we do. For this 
+reason we set `globals` by one of methods: 
+ * putting a special comment on top of the file
+ * adding globals to `standard` config in `package.json`
+
+```javascript
+/* global fetch */
+```
+
+or
+
+```javascript
+// package.json
+{
+  // other settings
+  "standard": {
+    "globals": [ "fetch" ]
+  }
+  // other settings
+}
+```
+
+📝 Globals introduced by some libraries (like `describe` or `expect` populated
+into global scope by `jest` test framework) can be handled via yet another 
+configuration pattern shown in the next chapter of the tutorial. 
 
 
 ## 03 Documentation
