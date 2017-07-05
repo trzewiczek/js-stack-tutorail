@@ -7,8 +7,8 @@ setup based on React/Redux/RxJS.
 The steps of the process are:
 
  0. [Babel, Standard, ESDoc - basic environment setup](00.Environment/README.md)
- 1. [Jest - test first](01.Jest/README.md)
- 2. Redux - minimal console app
+ 1. [Jest - first test first](01.Jest/README.md)
+ 2. [Redux - minimal console app](02.Redux/README.md)
  3. RxJS - console app with async
  4. Enzyme - testing GUI app
  5. React - GUI app
@@ -22,6 +22,11 @@ Each section consists of four subsections:
  * 🚀 In action
  * 📖 Resources 
  * 🔍 Extras
+
+Additionally some sections contain additional subsection:
+ * 🎓 Some theory
+
+Inline *margin notes* are marked with 📝 emoji.
 
 ## Issues
 I put this tutorial on github to let everyone submit issues and pull requests. 
