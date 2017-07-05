@@ -125,10 +125,166 @@ These three though create the core of what Redux is:
 That's it. 
 
 ### 🛠 Basic setup
-⌚
+We start with installing `redux`:
+
+```bash
+[js-stack-tutorail]$ yarn add redux
+```
+
+Congratulations! We're done with setup. 🏆
 
 ### 🚀 In action
-⌚
+Before we do some real coding let's use the example above to test if `redux` 
+really works. 
+
+We've said `reducer` is a pure function, which makes it so easy to test. Let's 
+do it then. 
+
+Create a `src` folder and put the unit test file inside:
+
+```bash
+[js-stack-tutorail]$ mkdir src
+[js-stack-tutorail]$ touch src/index.test.js
+```
+
+From three elements mentioned above—store, action, reducer—it is `reducer` that
+actually does something (i.e. transforms old state into new state with action 
+payload). We'll start with it then. 
+
+Earlier we've mentioned four assumptions about each `reducer`:
+
+ 1. it initializes the state with a default value if no state is defined yet
+ 2. it creates new state based on old one and action payload
+ 3. it doesn't change the old state
+ 4. it doesn't affect the state at all if it doesn't recognize the `action.type`
+
+One unit test for each gives us:
+
+```javascript
+// index.test.js
+import { reducer } from './index'
+
+describe('Todo List Reducer', () => {
+  it('should initialize store with empty todo list', () => {
+    const initialState = undefined
+    const anyAction = { type: 'ANY_ACTION' }
+
+    const expectedState = { todos: [] }
+
+    const newState = reducer(initialState, anyAction)
+
+    expect(newState).toEqual(expectedState)
+  })
+
+  it('should add todo to the end of todo list', () => {
+    const initialState = {
+      todos: [ 'Learn Yarn' ]
+    }
+    const action = {
+      type: 'ADD_TODO',
+      text: 'Learn Redux'
+    }
+
+    const expectedState = {
+      todos: [ 'Learn Yarn', 'Learn Redux' ]
+    }
+
+    const newState = reducer(initialState, action)
+
+    expect(newState).toEqual(expectedState)
+  })
+
+  it('should create a new state leaving an old one untouched', () => {
+    const initialState = {
+      todos: [ 'Learn Yarn' ]
+    }
+    const action = {
+      type: 'ADD_TODO',
+      text: 'Learn Redux'
+    }
+
+    const newState = reducer(initialState, action)
+
+    expect(initialState).not.toEqual(newState)
+  })
+
+  it('should leave state untouched when action is not recognized', () => {
+    const initialState = {
+      todos: [ 'Learn Yarn' ]
+    }
+    const action = {
+      type: 'UNKNOWN_ACTION',
+      text: 'Learn Redux'
+    }
+
+    const expectedState = {
+      todos: [ 'Learn Yarn' ]
+    }
+
+    const newState = reducer(initialState, action)
+
+    expect(newState).toEqual(expectedState)
+  })
+})
+
+```
+
+As mentioned earlier:
+
+ 1. reducer's signature is `(state = <default>, action) => state`
+ 2. by convention `reducer` is actually a single `switch` statement
+
+In unit tests we specified that:
+ 1. the default state value in the reducer is `{ todos: [] }`
+ 2. the only `action.type` (i.e. `case`) recognized by the reducer is `ADD_TODO`
+
+Create a `src/index.js` file and implement such a reducer:
+
+```javascript
+// index.js
+export const reducer = (state = { todos: [] }, action) => {
+  switch (action.type) {
+    case 'ADD_TODO':
+      return {
+        todos: [
+          ...state.todos,
+          action.text
+        ]
+      }
+    default:
+      return state
+  }
+}
+```
+
+Gratification time:
+
+```bash
+[js-stack-tutorail]$ yarn test
+yarn test v0.24.6
+$ standard --verbose | snazzy && jest --coverage
+ PASS  src/index.test.js
+  Todo List Reducer
+    ✓ should initialize store with empty todo list (6ms)
+    ✓ should add todo to the end of todo list (1ms)
+    ✓ should create a new state leaving an old one untouched (2ms)
+    ✓ should leave state untouched when action is not recognized (1ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+Snapshots:   0 total
+Time:        1.207s
+Ran all test suites.
+----------|----------|----------|----------|----------|----------------|
+File      |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+----------|----------|----------|----------|----------|----------------|
+All files |      100 |      100 |      100 |      100 |                |
+ index.js |      100 |      100 |      100 |      100 |                |
+----------|----------|----------|----------|----------|----------------|
+Done in 3.48s.
+```
+
+And voila! Reducer works fine. But where's `redux`?
 
 ### 📖 Resources
 ⌚
