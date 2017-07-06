@@ -1,3 +1,3 @@
 export const ADD_TRAVEL = 'ADD_TRAVEL'
-export const REMOVE_TRAVEL = 'ADD_TRAVEL'
+export const REMOVE_TRAVEL = 'REMOVE_TRAVEL'
 export const RESCHEDULE_TRAVEL = 'RESCHEDULE_TRAVEL'

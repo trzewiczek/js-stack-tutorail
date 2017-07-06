@@ -167,7 +167,7 @@ import { reducer } from './index'
 describe('Todo List Reducer', () => {
   it('should initialize store with empty todo list', () => {
     const initialState = undefined
-    const anyAction = { type: 'ANY_ACTION' }
+    const anyAction = { type: 'DUMMY_ACTION' }
 
     const expectedState = { todos: [] }
 
@@ -349,7 +349,7 @@ file:
 ```javascript
 // actionTypes.js
 export const ADD_TRAVEL = 'ADD_TRAVEL'
-export const REMOVE_TRAVEL = 'ADD_TRAVEL'
+export const REMOVE_TRAVEL = 'REMOVE_TRAVEL'
 export const RESCHEDULE_TRAVEL = 'RESCHEDULE_TRAVEL'
 ```
 
@@ -541,7 +541,205 @@ Keeping in mind that for the current requirements object-based version is way
 too much, let's stay with it so we don't have to re-implement too much in the 
 next chapter. 
 
+Reducer! It has to handle three types of events: 
+ * ADD_TRAVEL
+ * REMOVE_TRAVEL
+ * RESCHEDULE_TRAVEL
 
+and its default state shape is simply `{ travels: [] }`. Let's 
+`src/reducer.test.js` it!
+
+```javascript
+// reducer.test.js
+import { reducer } from './reducer'
+import { addTravel, removeTravel, rescheduleTravel } from './actions'
+
+describe('Action creators', () => {
+  it('should initialize the store', () => {
+    const initialState = undefined
+    const dummyAction = { type: 'DUMMY_ACTION' }
+
+    const expectedState = { travels: [] }
+
+    const newState = reducer(initialState, dummyAction)
+
+    expect(newState).toEqual(expectedState)
+  })
+
+  it('should add travel to the end of travel list', () => {
+    const initialState = {
+      travels: [
+        {
+          id: 0,
+          destination: 'Taranaki, NZ',
+          date: '2017-09-10'
+        }
+      ]
+    }
+    const action = addTravel(1, 'Mar-A-Lago, FL', '2017-12-13')
+
+    const expectedState = {
+      travels: [
+        {
+          id: 0,
+          destination: 'Taranaki, NZ',
+          date: '2017-09-10'
+        },
+        {
+          id: 1,
+          destination: 'Mar-A-Lago, FL',
+          date: '2017-12-13'
+        }
+      ]
+    }
+
+    const newState = reducer(initialState, action)
+
+    expect(newState).toEqual(expectedState)
+  })
+
+  it('should remove travel from the travel list', () => {
+    const initialState = {
+      travels: [
+        {
+          id: 0,
+          destination: 'Taranaki, NZ',
+          date: '2017-09-10'
+        },
+        {
+          id: 1,
+          destination: 'Mar-A-Lago, FL',
+          date: '2017-12-13'
+        },
+        {
+          id: 2,
+          destination: 'North Wales, UK',
+          date: '2017-12-31'
+        }
+      ]
+    }
+    const action = removeTravel(1)
+
+    const expectedState = {
+      travels: [
+        {
+          id: 0,
+          destination: 'Taranaki, NZ',
+          date: '2017-09-10'
+        },
+        {
+          id: 2,
+          destination: 'North Wales, UK',
+          date: '2017-12-31'
+        }
+      ]
+    }
+
+    const newState = reducer(initialState, action)
+
+    expect(newState).toEqual(expectedState)
+  })
+
+  it('should reschedule travel on the travel list', () => {
+    const initialState = {
+      travels: [
+        {
+          id: 0,
+          destination: 'Taranaki, NZ',
+          date: '2017-09-10'
+        }
+      ]
+    }
+    const action = rescheduleTravel(0, '2017-12-31')
+
+    const expectedState = {
+      travels: [
+        {
+          id: 0,
+          destination: 'Taranaki, NZ',
+          date: '2017-12-31'
+        }
+      ]
+    }
+
+    const newState = reducer(initialState, action)
+
+    expect(newState).toEqual(expectedState)
+  })
+})
+```
+
+Let's implement this lovely `switch` statement:
+
+```javascript
+// reducer.js
+import { ADD_TRAVEL, REMOVE_TRAVEL, RESCHEDULE_TRAVEL } from './actionTypes'
+
+export const reducer = (state = { travels: [] }, action) => {
+  switch (action.type) {
+    case ADD_TRAVEL:
+      const { id, destination, date } = action
+      return {
+        travels: [
+          ...state.travels,
+          {
+            id,
+            destination,
+            date
+          }
+        ]
+      }
+    case REMOVE_TRAVEL:
+      return {
+        travels: state.travels.filter(e => e.id !== action.id)
+      }
+    case RESCHEDULE_TRAVEL:
+      return {
+        travels: state.travels.map(e => {
+          if (e.id !== action.id) {
+            return e
+          } else {
+            return {
+              id: e.id,
+              destination: e.destination,
+              date: action.date
+            }
+          }
+        })
+      }
+    default:
+      return state
+  }
+}
+```
+
+And now some party:
+
+```bash
+[js-stack-tutorail]$ yarn test
+yarn test v0.24.6
+$ standard --verbose | snazzy && jest --coverage
+ PASS  src/actions.test.js
+ PASS  src/reducer.test.js
+
+Test Suites: 2 passed, 2 total
+Tests:       7 passed, 7 total
+Snapshots:   0 total
+Time:        1.11s
+Ran all test suites.
+----------------|----------|----------|----------|----------|----------------|
+File            |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+----------------|----------|----------|----------|----------|----------------|
+All files       |    95.83 |       90 |      100 |    95.24 |                |
+ actionTypes.js |      100 |      100 |      100 |      100 |                |
+ actions.js     |      100 |      100 |      100 |      100 |                |
+ reducer.js     |    90.91 |    85.71 |      100 |    90.91 |             25 |
+----------------|----------|----------|----------|----------|----------------|
+Done in 4.15s.
+```
+
+Once again we finally got to the point where we can call `redux` to put it all
+together. 
 
 ### 📖 Resources
 ⌚
