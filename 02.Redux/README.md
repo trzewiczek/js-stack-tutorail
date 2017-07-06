@@ -339,6 +339,183 @@ Let's go through it step by step:
 Having proven `redux` works as promised we can start implementing 'a real app': 
 **a travel planner**!
 
+So where to start? Probably with `actions`. Let's list them and let's take an 
+enum kind of approach here. Instead of using plain strings for action types
+we'll put them as constants in `src/actionTypes.js` file:
+
+```javascript
+// actionTypes.js
+export const ADD_TRAVEL = 'ADD_TRAVEL'
+export const REMOVE_TRAVEL = 'ADD_TRAVEL'
+export const RESCHEDULE_TRAVEL = 'RESCHEDULE_TRAVEL'
+```
+
+It might look redundant at first but soon you'll want to keep all supported 
+actions in one place. And you'll want to have constants instead of simple
+strings so your IDE warns you about the typos and runtime breaks when meets one.
+
+Remember that the `store` cares only if an action object has a `type` defined.
+Reducers on the other hand care only about the action types they recognize. 
+A typo in the action type could then lead to a long debugging session, because
+it would pass silently. Technically it's not a bug, system just doesn't support
+such an action. With all actions defined as constants IDE will immediately warn 
+you about the typo and runtime will break with grace. 
+
+Back to **travel planner**! We've defined some events that can occur in our app.
+Let's now think how the action objects representing each event could look like. 
+
+```javascript
+{
+  type: ADD_TRAVEL,
+  id: 0,
+  destination: 'Taranaki, NZ',
+  date: '2017-09-10'
+}
+
+{
+  type: REMOVE_TRAVEL,
+  id: 0
+}
+
+{
+  type: RESCHEDULE_TRAVEL,
+  id: 0,
+  date: '2017-09-17'
+}
+```
+
+Can you imagine the app already?
+
+Now just like with the action types constants let's create a simple interface 
+over how the objects actually look like. We'll call it `action creators` and
+will use a snippet above to specify them in `src/actions.test.js` file:
+
+```javascript
+// actions.test.js
+import { ADD_TRAVEL, REMOVE_TRAVEL, RESCHEDULE_TRAVEL } from './actionTypes'
+import { addTravel, removeTravel, rescheduleTravel } from './actions'
+
+describe('Action creators', () => {
+  it('should create an ADD_TRAVEL action', () => {
+    const expectedAction = {
+      type: ADD_TRAVEL,
+      id: 0,
+      destination: 'Mar-A-Lago, FL',
+      date: '2017-12-13'
+    }
+
+    const result = addTravel(0, 'Mar-A-Lago', '2017-12-13')
+
+    expect(result).toEqual(expectedAction)
+  })
+
+  it('should create a REMOVE_TRAVEL action', () => {
+    const expectedAction = {
+      type: REMOVE_TRAVEL,
+      id: 0
+    }
+
+    const result = removeTravel(0)
+
+    expect(result).toEqual(expectedAction)
+  })
+
+  it('should create a RESCHEDULE_TRAVEL action', () => {
+    const expectedAction = {
+      type: RESCHEDULE_TRAVEL,
+      id: 0,
+      date: '2017-12-06'
+    }
+
+    const result = rescheduleTravel(0, '2017-12-06')
+
+    expect(result).toEqual(expectedAction)
+  })
+})
+```
+
+Simple and straightforward. Just like `action creators` should be. Ready
+to implement them?
+
+```javascript
+// actions.js
+import { ADD_TRAVEL, REMOVE_TRAVEL, RESCHEDULE_TRAVEL } from './actionTypes'
+
+export const addTravel = (id, destination, date) => ({
+  type: ADD_TRAVEL,
+  id,
+  destination,
+  date
+})
+
+export const removeTravel = (id) => ({
+  type: REMOVE_TRAVEL,
+  id
+})
+
+export const rescheduleTravel = (id, date) => ({
+  type: RESCHEDULE_TRAVEL,
+  id,
+  date
+})
+```
+
+We use some funky and very compact ES6 syntax here: 
+[object property shorthand](http://es6-features.org/#PropertyShorthand),
+[arrow functions](http://es6-features.org/#ExpressionBodies)
+and their [simplified object return syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#Returning_object_literals). 
+
+Anyway. Whenever we want to dispatch an action we can now use `action creators`
+like this:
+
+```javascript
+store.dispatch(addTravel(5, 'North Wales, UK', '2017-09-10'))
+store.dispatch(rescheduleTravel(4, '2017-10-09'))
+store.dispatch(removeTravel(2))
+```
+
+So having types of events that can occur in the system and the shape of action
+objects representing them we could probably think about the shape of state in 
+the store and some reducers to handle our actions.  
+
+From our `action creators` implementation one can think that the shape of state
+will be something like:
+
+```javascript
+{
+  travels: [
+    {
+      id: <number>,
+      destination: <string>,
+      date: <string>
+    }
+    ...
+  ]
+}
+```
+
+The truth is there is no obligation for the state to be an object and in our
+case it could as well be a flat list like this one:
+
+```javascript
+[
+  {
+    id: <number>,
+    destination: <string>,
+    date: <string>
+  }
+  ...
+]
+```
+
+What's more, we could probably simplify the implementation by removing `id` 
+thing—we could just use array indices. 
+
+Keeping in mind that for the current requirements it's too much, let's stay 
+with an object so we don't have to re-implement too much in the next chapter. 
+
+
+
 ### 📖 Resources
 ⌚
 
