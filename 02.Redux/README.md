@@ -669,9 +669,9 @@ describe('Action creators', () => {
 })
 ```
 
-📝 In `RESCHEDULE_TRAVEL` case we could be [Using Object Spread Operator]
-(http://redux.js.org/docs/recipes/UsingObjectSpreadOperator.html) and we will
-when we make all the plugins in place in `🔍 Extras` section below.
+📝 In `RESCHEDULE_TRAVEL` case we could be 
+[Using Object Spread Operator](http://redux.js.org/docs/recipes/UsingObjectSpreadOperator.html)
+and we will when we make all the plugins in place in `🔍 Extras` section below.
 
 Now, let's implement our lovely `switch` statement:
 
