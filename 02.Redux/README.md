@@ -337,7 +337,8 @@ Let's go through it step by step:
     passes without bothering the state. (good news: `redux` doesn't understand *corpo ipsum*!)
 
 Having proven `redux` works as promised we can start implementing 'a real app': 
-**a travel planner**!
+**a travel planner**! Don't forget to remove those `src/index*` guys before 
+we move on! 🚮
 
 ### 🚀 In action II
 So where to start with the **planner**? Probably with `actions`. Let's list
@@ -460,6 +461,27 @@ export const rescheduleTravel = (id, date) => ({
   id,
   date
 })
+```
+
+```bash
+[js-stack-tutorail]$ yarn test
+yarn test v0.24.6
+$ standard --verbose | snazzy && jest --coverage
+ PASS  src/actions.test.js
+
+Test Suites: 1 passed, 1 total
+Tests:       3 passed, 3 total
+Snapshots:   0 total
+Time:        1.225s
+Ran all test suites.
+----------------|----------|----------|----------|----------|----------------|
+File            |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+----------------|----------|----------|----------|----------|----------------|
+All files       |      100 |      100 |      100 |      100 |                |
+ actionTypes.js |      100 |      100 |      100 |      100 |                |
+ actions.js     |      100 |      100 |      100 |      100 |                |
+----------------|----------|----------|----------|----------|----------------|
+Done in 3.15s.
 ```
 
 We use some funky and very compact ES6 syntax here: 
