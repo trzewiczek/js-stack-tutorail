@@ -463,6 +463,13 @@ export const rescheduleTravel = (id, date) => ({
 })
 ```
 
+We use some funky and very compact ES6 syntax here: 
+[object property shorthand](http://es6-features.org/#PropertyShorthand),
+[arrow functions](http://es6-features.org/#ExpressionBodies)
+and their [simplified object return syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#Returning_object_literals). 
+
+But anyway! It's the 🃏 time:
+
 ```bash
 [js-stack-tutorail]$ yarn test
 yarn test v0.24.6
@@ -484,13 +491,8 @@ All files       |      100 |      100 |      100 |      100 |                |
 Done in 3.15s.
 ```
 
-We use some funky and very compact ES6 syntax here: 
-[object property shorthand](http://es6-features.org/#PropertyShorthand),
-[arrow functions](http://es6-features.org/#ExpressionBodies)
-and their [simplified object return syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#Returning_object_literals). 
-
-Anyway. Whenever we want to dispatch an action we can now use `action creators`
-like this:
+Works fine, so whenever we want to dispatch an action we can now use `action 
+creators` like this:
 
 ```javascript
 store.dispatch(addTravel(5, 'North Wales, UK', '2017-09-10'))
@@ -498,12 +500,12 @@ store.dispatch(rescheduleTravel(4, '2017-10-09'))
 store.dispatch(removeTravel(2))
 ```
 
-So having types of events that can occur in the system and the shape of action
+Having types of events that can occur in the system and the shape of action
 objects representing them we could probably think about the shape of state in 
 the store and some reducers to handle our actions.  
 
 From our `action creators` implementation one can think that the shape of state
-will be something like:
+could look something like:
 
 ```javascript
 {
@@ -535,8 +537,9 @@ case it could as well be a flat list like this one:
 What's more, we could probably simplify the implementation by removing `id` 
 thing—we could just use array indices. 
 
-Keeping in mind that for the current requirements it's too much, let's stay 
-with an object so we don't have to re-implement too much in the next chapter. 
+Keeping in mind that for the current requirements object-based version is way 
+too much, let's stay with it so we don't have to re-implement too much in the 
+next chapter. 
 
 
 
