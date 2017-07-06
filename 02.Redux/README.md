@@ -233,6 +233,13 @@ describe('Todo List Reducer', () => {
 
 ```
 
+📝 It might surprize you that in scenario `should create a new state leaving an
+old one untouched` we compare initial state with expected. This is due to the
+fact that with JavaScript you never know what gets mutated behind the scenes. 
+For that reason we could use some immutable data structures like 
+[Immutable.js](http://redux.js.org/docs/recipes/UsingImmutableJS.html) 
+or make it super crazy safe when testing. 
+
 As mentioned earlier:
  1. reducer's signature is `(state = <default>, action) => state`
  2. by convention `reducer` is actually a single `switch` statement
@@ -537,7 +544,8 @@ case it could as well be a flat list like this one:
 What's more, we could probably simplify the implementation by removing `id` 
 thing—we could just use array indices. 
 
-Keeping in mind that for the current requirements object-based version is way 
+Keeping in mind that for the current requirements (simply add, remove and 
+reschedule a single travel on a simple travel list) object-based version is way 
 too much, let's stay with it so we don't have to re-implement too much in the 
 next chapter. 
 
