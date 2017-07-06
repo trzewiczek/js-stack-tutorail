@@ -671,7 +671,7 @@ describe('Action creators', () => {
 
 📝 In `RESCHEDULE_TRAVEL` case we could be 
 [Using Object Spread Operator](http://redux.js.org/docs/recipes/UsingObjectSpreadOperator.html)
-and we will when we make all the plugins in place in `🔍 Extras` section below.
+and we will when we put all the plugins in place in `🔍 Extras` section below.
 
 Now, let's implement our lovely `switch` statement:
 
@@ -734,12 +734,13 @@ Ran all test suites.
 ----------------|----------|----------|----------|----------|----------------|
 File            |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
 ----------------|----------|----------|----------|----------|----------------|
-All files       |    95.83 |       90 |      100 |    95.24 |                |
+All files       |      100 |      100 |      100 |      100 |                |
  actionTypes.js |      100 |      100 |      100 |      100 |                |
  actions.js     |      100 |      100 |      100 |      100 |                |
- reducer.js     |    90.91 |    85.71 |      100 |    90.91 |             25 |
+ index.js       |      100 |      100 |      100 |      100 |                |
+ reducer.js     |      100 |      100 |      100 |      100 |                |
 ----------------|----------|----------|----------|----------|----------------|
-Done in 4.15s.
+Done in 4.03s.
 ```
 
 Once again we got to the point where we can finally call for `redux` to put it 

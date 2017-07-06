@@ -95,17 +95,27 @@ describe('Action creators', () => {
           id: 0,
           destination: 'Taranaki, NZ',
           date: '2017-09-10'
+        },
+        {
+          id: 1,
+          destination: 'Mar-A-Lago, FL',
+          date: '2017-12-13'
         }
       ]
     }
-    const action = rescheduleTravel(0, '2017-12-31')
+    const action = rescheduleTravel(1, '2021-01-20')
 
     const expectedState = {
       travels: [
         {
           id: 0,
           destination: 'Taranaki, NZ',
-          date: '2017-12-31'
+          date: '2017-09-10'
+        },
+        {
+          id: 1,
+          destination: 'Mar-A-Lago, FL',
+          date: '2021-01-20'
         }
       ]
     }
