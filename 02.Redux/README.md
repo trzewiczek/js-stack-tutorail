@@ -42,7 +42,7 @@ better understand how things talk one to another within Redux realm.
 ```
 
 **Action**
- * a JavaScript object representing event in the application
+ * a JavaScript object representing event in the application, e.g. adding todo
  * at minimum it has to have a `type: <string>` field (see examples below)
  * along with type it may contain any data a.k.a. payload (see examples below)
  * it's dispatched by the `store`
@@ -203,8 +203,12 @@ describe('Todo List Reducer', () => {
       text: 'Learn Redux'
     }
 
+    const expectedState = {
+      todos: [ 'Learn Yarn' ]
+    }
     const newState = reducer(initialState, action)
 
+    expect(initialState).toEqual(expectedState)
     expect(initialState).not.toEqual(newState)
   })
 

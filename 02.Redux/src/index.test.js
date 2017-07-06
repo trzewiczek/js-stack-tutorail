@@ -39,8 +39,12 @@ describe('Todo List Reducer', () => {
       text: 'Learn Redux'
     }
 
+    const expectedState = {
+      todos: [ 'Learn Yarn' ]
+    }
     const newState = reducer(initialState, action)
 
+    expect(initialState).toEqual(expectedState)
     expect(initialState).not.toEqual(newState)
   })
 
