@@ -135,7 +135,7 @@ To the code! We start with installing `redux`:
 
 Congratulations! We're done with setup. 🏆
 
-### 🚀 In action
+### 🚀 In action I
 Before we do some real coding let's use the example from last bullet list 
 above to test if `redux` really works this way. 
 
@@ -339,9 +339,11 @@ Let's go through it step by step:
 Having proven `redux` works as promised we can start implementing 'a real app': 
 **a travel planner**!
 
-So where to start? Probably with `actions`. Let's list them and let's take an 
-enum kind of approach here. Instead of using plain strings for action types
-we'll put them as constants in `src/actionTypes.js` file:
+### 🚀 In action II
+So where to start with the **planner**? Probably with `actions`. Let's list
+them and let's take an enum kind of approach here. Instead of using plain 
+strings for action types we'll put them as constants in `src/actionTypes.js` 
+file:
 
 ```javascript
 // actionTypes.js
