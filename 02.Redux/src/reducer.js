@@ -24,11 +24,7 @@ export const reducer = (state = { travels: [] }, action) => {
           if (e.id !== action.id) {
             return e
           } else {
-            return {
-              id: e.id,
-              destination: e.destination,
-              date: action.date
-            }
+            return Object.assign({}, e, { date: action.date })
           }
         })
       }

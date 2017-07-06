@@ -669,7 +669,11 @@ describe('Action creators', () => {
 })
 ```
 
-Let's implement this lovely `switch` statement:
+📝 In `RESCHEDULE_TRAVEL` case we could be [Using Object Spread Operator]
+(http://redux.js.org/docs/recipes/UsingObjectSpreadOperator.html) and we will
+when we make all the plugins in place in `🔍 Extras` section below.
+
+Now, let's implement our lovely `switch` statement:
 
 ```javascript
 // reducer.js
@@ -713,7 +717,7 @@ export const reducer = (state = { travels: [] }, action) => {
 }
 ```
 
-And now some party:
+Party! Party! Party!
 
 ```bash
 [js-stack-tutorail]$ yarn test
@@ -738,8 +742,8 @@ All files       |    95.83 |       90 |      100 |    95.24 |                |
 Done in 4.15s.
 ```
 
-Once again we finally got to the point where we can call `redux` to put it all
-together. 
+Once again we got to the point where we can finally call for `redux` to put it 
+all together. 
 
 ### 📖 Resources
 ⌚
