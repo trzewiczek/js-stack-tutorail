@@ -330,7 +330,7 @@ Let's go through it step by step:
  4. Next we dispatch two 'ADD_TODO' actions and it turns out that each time the 
     state is updated according to our expectations. 
  5. Finally we dispatch an action our `reducer` doesn't understand, so it just
-    passes without bothering the state. (`redux` passes 'sanity test' by not understanding *corpo ipsum*!)
+    passes without bothering the state. (good news: `redux` doesn't understand *corpo ipsum*!)
 
 
 ### 📖 Resources
