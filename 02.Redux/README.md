@@ -332,6 +332,8 @@ Let's go through it step by step:
  5. Finally we dispatch an action our `reducer` doesn't understand, so it just
     passes without bothering the state. (good news: `redux` doesn't understand *corpo ipsum*!)
 
+Having proven `redux` works as promised we can start implementing 'a real app': 
+**a travel planner**!
 
 ### 📖 Resources
 ⌚
