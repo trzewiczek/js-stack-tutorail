@@ -1,5 +1,17 @@
 import { ADD_TRAVEL, REMOVE_TRAVEL, RESCHEDULE_TRAVEL } from './actionTypes'
 
+/**
+ * Travel reducer.
+ *
+ * Supported action types:
+ *  - ADD_TRAVEL
+ *  - REMOVE_TRAVEL
+ *  - RESCHEDULE_TRAVEL
+ *
+ * @param {Object} [state = { travels: [] }] Current state of the store
+ * @param {Object} action Action dispatched by the store
+ * @return {Object} New state of the store
+ */
 export const reducer = (state = { travels: [] }, action) => {
   switch (action.type) {
     case ADD_TRAVEL:

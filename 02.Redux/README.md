@@ -754,6 +754,65 @@ Done in 4.03s.
 Once again we got to the point where we can finally call for `redux` to put it 
 all together. 
 
+But wait, isn't it only the store that we have to create to make `redux` full
+operational? Let's try. In `src/index.js` create a store, dispatch a few actions
+here and there and see what the store looks like:
+
+```javascript
+// index.js
+import { createStore } from 'redux'
+import { reducer } from './reducer'
+import { addTravel, removeTravel, rescheduleTravel } from './actions'
+
+const store = createStore(reducer)
+
+console.log('Right after store creation')
+console.log(store.getState())
+
+store.dispatch(addTravel(1, 'North Wales, UK', '2017-09-16'))
+store.dispatch(addTravel(2, 'Mar-A-Lago, FL', '2021-01-20'))
+store.dispatch(addTravel(3, 'Silesia, PL', '2018-06-01'))
+
+console.log('After adding three travels')
+console.log(store.getState())
+
+store.dispatch(removeTravel(2))
+
+console.log('After removing trip to Mar-A-Lago')
+console.log(store.getState())
+
+store.dispatch(rescheduleTravel(3, '2017-12-31'))
+
+console.log('After rescheduling trip to Poland')
+console.log(store.getState())
+```
+
+And try it with `yarn`:
+
+```bash
+[js-stack-tutorail]$ yarn start
+yarn start v0.24.6
+$ babel-node src
+Right after store creation
+{ travels: [] }
+After adding three travels
+{ travels:
+   [ { id: 1, destination: 'North Wales, UK', date: '2017-09-16' },
+     { id: 2, destination: 'Mar-A-Lago, FL', date: '2021-01-20' },
+     { id: 3, destination: 'Silesia, PL', date: '2018-06-01' } ] }
+After removing trip to Mar-A-Lago
+{ travels:
+   [ { id: 1, destination: 'North Wales, UK', date: '2017-09-16' },
+     { id: 3, destination: 'Silesia, PL', date: '2018-06-01' } ] }
+After rescheduling trip to Poland
+{ travels:
+   [ { id: 1, destination: 'North Wales, UK', date: '2017-09-16' },
+     { id: 3, destination: 'Silesia, PL', date: '2017-12-31' } ] }
+Done in 1.81s.
+```
+
+🍾 🎉 🍹
+
 ### 📖 Resources
 ⌚
 
