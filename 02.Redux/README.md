@@ -9,10 +9,10 @@
 > —[Redux Official Website](http://redux.js.org/)
 
 Quote above makes it clear: Redux is not related to React and is not a frontend
-framework. It's a library to make state management in JavaScript apps easy to
-work with and reason about. It works smoothly with React, but it works fine with
-console apps, Angular, and whatever you find it suitable for. It might as well
-be possible that [You Might Not Need Redux](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367). 
+framework. It's a library with a bunch of conventions to make state management 
+in JavaScript apps easy to work with and reason about. It works smoothly with 
+React, but it works fine with console apps, Angular, and whatever you find it 
+suitable for. It might as well be possible that [You Might Not Need Redux](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367). 
 
 First, let's start with a few facts about key Redux elements that will let you 
 better understand how things talk one to another within Redux realm.
@@ -812,6 +812,28 @@ Done in 1.81s.
 ```
 
 🍾 🎉 🍹
+
+And now we're finally ready to read the opening quote once again:
+
+> Redux is a predictable state container for JavaScript apps.
+>
+> —[Redux Official Website](http://redux.js.org/)
+
+That's why Redux is not related to React and is not a frontend framework. 
+It's a library with a bunch of conventions to make state management in 
+JavaScript apps easy to work with and reason about.
+
+Does it make more sense now? I believe it might be disappointing that 
+we don't yet have any interface—be it CLI or GUI—for our **travel planner**
+and that the app seems just a half way in, but this is exactly what `redux`
+offers to us. 🤷‍♂️
+
+To sum it up: `redux` help us build event-driven apps by introducing a
+predictable state management based on an event dispatcher/listener. 
+
+In the next chapter we will introduce `redux-observables`—a smart
+middleware making `RxJS` talk with `redux`—to let us handle asynchronous 
+actions. 
 
 ### 📖 Resources
 ⌚
