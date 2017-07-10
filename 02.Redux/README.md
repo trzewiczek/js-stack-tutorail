@@ -982,7 +982,9 @@ $ babel-node src
   travels: [ { id: 1, destination: 'North Wales, UK', date: '2017-09-16' } ] }
 Done in 1.72s.
 ```
-✍️
+
+`combineReducers` is a simple yet nitro-powered function helping to preserve
+a clean and modular architecture. 
 ️
 #### middleware
 ✍️
