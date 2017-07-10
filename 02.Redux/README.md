@@ -848,6 +848,7 @@ actions.
    including ones answered by Dan Abramov. It's definitely worth reading 
    through the top three Q/As on the list as they give a great insight into
    how `redux` work. These are:
+   
    Votes | Views | Link
    ------|-------|-----
    700+ | 150+k | [Why use Redux over Facebook Flux](https://stackoverflow.com/questions/32461229/why-use-redux-over-facebook-flux)
