@@ -836,7 +836,25 @@ middleware making `RxJS` talk with `redux`—to let us handle asynchronous
 actions. 
 
 ### 📖 Resources
-⌚
+ * [Getting started with Redux](https://egghead.io/courses/getting-started-with-redux)
+   is **the** video course to watch presented by Redux creator Dan Abramov. 
+   It's 2 hours of the great foundation not only on how Redux works but
+   as well how it works behind the scene, i.e. what problems it builds 
+   abstraction over. 
+ * [Redux official documentation](http://redux.js.org/docs/basics/) 
+   which is very clear and informative. Starts with the basics and goes
+   into more and more advanced concepts (e.g. using Immutable.js with redux).
+ * [StackOverflow most voted `redux` questions](https://stackoverflow.com/questions/tagged/redux?sort=votes&pageSize=15)
+   including ones answered by Dan Abramov. It's definitely worth reading 
+   through the top three Q/As on the list as they give a great insight into
+   how `redux` work. These are:
+     * 700+ Votes | 150+k Views | [Why use Redux over Facebook Flux](https://stackoverflow.com/questions/32461229/why-use-redux-over-facebook-flux)
+     * 350+ Votes | 130+k Views | [How to dispatch a Redux action with a timeout?](https://stackoverflow.com/questions/35411423/how-to-dispatch-a-redux-action-with-a-timeout)
+     * 250+ Votes | 50+k Views | [Why do we need middleware for async flow in Redux?](https://stackoverflow.com/questions/34570758/why-do-we-need-middleware-for-async-flow-in-redux)       
+       This one probably is best to read after reading about redux middleware
+       in the `Extras` section below. 
 
 ### 🔍 Extras
-⌚
+#### combineReducers
+#### middleware
+#### rewind
