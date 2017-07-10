@@ -848,11 +848,15 @@ actions.
    including ones answered by Dan Abramov. It's definitely worth reading 
    through the top three Q/As on the list as they give a great insight into
    how `redux` work. These are:
-     * 700+ Votes | 150+k Views | [Why use Redux over Facebook Flux](https://stackoverflow.com/questions/32461229/why-use-redux-over-facebook-flux)
-     * 350+ Votes | 130+k Views | [How to dispatch a Redux action with a timeout?](https://stackoverflow.com/questions/35411423/how-to-dispatch-a-redux-action-with-a-timeout)
-     * 250+ Votes | 50+k Views | [Why do we need middleware for async flow in Redux?](https://stackoverflow.com/questions/34570758/why-do-we-need-middleware-for-async-flow-in-redux)       
-       This one probably is best to read after reading about redux middleware
-       in the `Extras` section below. 
+   Votes | Views | Link
+   ------|-------|-----
+   700+ | 150+k | [Why use Redux over Facebook Flux](https://stackoverflow.com/questions/32461229/why-use-redux-over-facebook-flux)
+   350+ | 130+k | [How to dispatch a Redux action with a timeout?](https://stackoverflow.com/questions/35411423/how-to-dispatch-a-redux-action-with-a-timeout)
+   250+ | 50+k | [Why do we need middleware for async flow in Redux?](https://stackoverflow.com/questions/34570758/why-do-we-need-middleware-for-async-flow-in-redux)       
+   
+   The last one Q/A is probably best to read after making yourself a little familiar 
+   with `redux` middleware either in [the official documentation](http://redux.js.org/docs/advanced/Middleware.html) or in the `Extras` section 
+   below.
 
 ### 🔍 Extras
 #### combineReducers
