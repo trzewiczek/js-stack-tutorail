@@ -861,8 +861,129 @@ actions.
 
 ### 🔍 Extras
 #### combineReducers
-✍️
+Earlier in the tutorial we've said that the store could be an Array or an Object
+or any other thing JavaScript provides us. And we've decided to use an Object
+even we knew that at this stage of the app development we didn't need that. And
+it was for reason. 
 
+We could imagine that soon besides our `travels` we'd like to keep user info in 
+the store. We would probably store it as a separate branch of the state object, 
+e.g.:
+
+```javascript
+{
+  user: {
+    lastActive: 1491553832020,
+    accessToken: "7f58ad1091f50b1437265164c41a09bb" 
+  },
+  travels: [
+    { id: 8, destination: 'Mar-A-Lago, FL', date: '2017-12-31' }
+  ]
+}
+```
+
+We could maintain this object in our reducer, but soon our switch case would grow
+too big and it would have to incorporate some logic to maintain each of the state's
+branches. 
+
+`Redux` makes it much easier with `combineReducers`. It's a function that collects
+reducers and create a combo-reducer populating the state object with `reducer` 
+becoming a separate branch of the state tree:
+
+```javascript
+import { createStore, combineReducers } from 'redux'
+
+const user = (state = {}, action) => {
+  switch (action.type) {
+    case 'LOGIN_SUCCESS':
+      return {
+        lastActive: action.timestamp,
+        accessToken: action.accessToken
+      }
+    // other action.types handles
+    default:
+      return state
+  }
+}
+
+const travels = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD_TRAVEL':
+      const { id, destination, date } = action
+      return [
+        ...state,
+        { id, destination, date }
+      ]
+    // other action.types handles
+    default:
+      return state
+  }
+}
+
+const reducer = combineReducers({
+  user,
+  travels
+})
+
+const store = createStore(reducer)
+
+console.log('--> Right after store creation')
+console.log(store.getState())
+console.log()
+
+store.dispatch({ 
+  type: 'LOGIN_SUCCESS', 
+  timestamp: 1491553832020, 
+  accessToken: '7f58ad1091f50b1437265164c41a09bb' 
+})
+console.log('--> After logging the user')
+console.log(store.getState())
+console.log()
+
+
+store.dispatch({
+  type: 'ADD_TRAVEL',
+  id: 1,
+  destination: 'North Wales, UK', 
+  date: '2017-09-16'
+})
+
+console.log('--> After adding a travel')
+console.log(store.getState())
+console.log()
+```
+
+Please note that `travels` reducer now operates on an `Array`, not an `Object`,
+but it's still populated in the store under `travels` key. This is due to the 
+[logic behind `combineReducers`](https://github.com/reactjs/redux/blob/master/src/combineReducers.js#L86)
+function. And as you see the `state` argument is now easier to operate with
+as it's scoped only to what matters to the `travels` reducer and not the whole
+state object. 
+
+Let's try it with `yarn`:
+
+```bash
+[js-stack-tutorail]$ yarn start
+yarn start v0.24.6
+$ babel-node src
+--> Right after store creation
+{ user: {}, travels: [] }
+
+--> After logging the user  
+{ user:
+   { lastActive: 1491553832020,
+     accessToken: '7f58ad1091f50b1437265164c41a09bb' },
+  travels: [] }
+
+--> After adding a travel
+{ user:
+   { lastActive: 1491553832020,
+     accessToken: '7f58ad1091f50b1437265164c41a09bb' },
+  travels: [ { id: 1, destination: 'North Wales, UK', date: '2017-09-16' } ] }
+Done in 1.72s.
+```
+✍️
+️
 #### middleware
 ✍️
 
