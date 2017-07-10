@@ -861,5 +861,10 @@ actions.
 
 ### 🔍 Extras
 #### combineReducers
+✍️
+
 #### middleware
+✍️
+
 #### rewind
+✍️
