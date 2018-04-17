@@ -59,10 +59,13 @@ so `yarn` can take control over execution of our application (we will use
   // other settings
   "scripts": {
     "start": "babel-node src"
-  }
+  },
   // other settings
 }
 ```
+
+> Be aware the trailing comma after the newly added settings! `package.json`
+> is, well... a regulat JSON, so it has to be a valid JavaScript object.
 
 As mentioned before `babel` needs to know which plugins to use. We can
 specify it in `.babelrc` config file as follows:
@@ -80,7 +83,7 @@ specify it in `.babelrc` config file as follows:
 }
 ```
 
-Before we introduce React and browser environment we set up our target 
+Before we introduce React and browser environment we set up our target
 environment to current version of node, where 'current' means 'one that
 executes this code'.
 
@@ -148,7 +151,7 @@ SyntaxError: Unexpected token import
 Not really.
 
 
-### 📖 Resources 
+### 📖 Resources
  * [babel official website](http://babeljs.io/)
  * [env preset documentation](http://babeljs.io/docs/plugins/preset-env/)
  * [other babel presets](https://babeljs.io/docs/plugins/)
@@ -159,13 +162,13 @@ Not really.
 
 
 ### 🔍 Extras
-`babel` is actually two things: a transpiler and polyfill. The difference 
-between them is that the first one—transpiler—transforms ES6 syntax into 
-equivalent ES5 code and the other one—polyfill—populates the global 
-environment and some `prototypes` with additional objects, properties and 
-methods. 
+`babel` is actually two things: a transpiler and polyfill. The difference
+between them is that the first one—transpiler—transforms ES6 syntax into
+equivalent ES5 code and the other one—polyfill—populates the global
+environment and some `prototypes` with additional objects, properties and
+methods.
 
-`babel-node` uses both of them while executed which ensures that 
+`babel-node` uses both of them while executed which ensures that
 `babel-polyfill` is used before doing anything else and that there is a single
 import of the polyfill into the code base.
 
@@ -173,18 +176,18 @@ import of the polyfill into the code base.
 
 ## 02 Linter
 
-> Programs must be written for people to read, and only incidentally for 
+> Programs must be written for people to read, and only incidentally for
 > machines to execute.
-> 
+>
 > —Hal Abelson, co-author of 'Structure and Interpretation of Computer Programs'
 
 ### 🛠 Basic setup
-`Standard` comes with no extra configuration costs. Its defaults are widely 
+`Standard` comes with no extra configuration costs. Its defaults are widely
 accepted in the community and make it 'Plug & Play' kind of tool. Except the
-output...By default `standard` output 'leaves some area for improvements' and 
-is not easy to read. 
+output...By default `standard` output 'leaves some area for improvements' and
+is not easy to read.
 
-Instead we'll use `snazzy`, a simple and clean `standard` output formatter. 
+Instead we'll use `snazzy`, a simple and clean `standard` output formatter.
 
 Both are developer utilities, so we'll install them as `--dev` dependencies:
 
@@ -192,7 +195,7 @@ Both are developer utilities, so we'll install them as `--dev` dependencies:
 [js-stack-tutorail] $ yarn add --dev standard snazzy
 ```
 
-We'll use `standard` (with `snazzy` formatter) as the first step in our `test` 
+We'll use `standard` (with `snazzy` formatter) as the first step in our `test`
 flow by adding it into `test` section of our `scripts` in `package.json`:
 
 ```javascript
@@ -202,7 +205,7 @@ flow by adding it into `test` section of our `scripts` in `package.json`:
   "scripts": {
     "start": "babel-node src",
     "test": "standard --verbose | snazzy"
-  }
+  },
   // other settings
 }
 ```
@@ -211,33 +214,33 @@ We use `--verbose` output to let `snazzy` inform us about the rule each error
 and warning falls upon making it easier to tweak `standard` behavior.
 
 Before we continue let's set up our IDE, so it helps us keep the `standard`!
-Good for us `standard` has a great support in VS Code. Just hit `Ctrl+P`, 
+Good for us `standard` has a great support in VS Code. Just hit `Ctrl+P`,
 paste `ext install vscode-standardjs`, hit `Enter` and install
-`JavaScript Standard Style` plugin. Easy. 
+`JavaScript Standard Style` plugin. Easy.
 
-To make it really funky set its `autoFixOnSave` option to `true` in your 
+To make it really funky set its `autoFixOnSave` option to `true` in your
 VS Code settings file:
 
 ```javascript
 // vscode settings
 {
   // other settings
-  "standard.autoFixOnSave": true
+  "standard.autoFixOnSave": true,
   // other settings
 }
 ```
 
-After reloading the Window (`F1 > reload > Enter`) `standard` will not only 
+After reloading the Window (`F1 > reload > Enter`) `standard` will not only
 automatically run in the background and lint your code on the fly, but as well
-it will do most obvious code cleanup (indentation etc.) every time you hit 
-`Ctrl+S`. 
+it will do most obvious code cleanup (indentation etc.) every time you hit
+`Ctrl+S`.
 
-📝 Even if you have an auto-save option turned on you still have to hit 
-`Ctrl+S` to trigger `standard.autoFixOnSave`. 
+📝 Even if you have an auto-save option turned on you still have to hit
+`Ctrl+S` to trigger `standard.autoFixOnSave`.
 
 
 ### 🚀 In action
-Earlier in the tutorial we've created a `src/index.js` file with the 
+Earlier in the tutorial we've created a `src/index.js` file with the
 following snippet inside:
 
 ```javascript
@@ -295,17 +298,17 @@ Smooth and gentle!
 
 
 ### 🔍 Extras
-`Standard` follows quite a rigorous approach: [no overwriting the rules](https://standardjs.com/index.html#i-disagree-with-rule-x-can-you-change-it). 
+`Standard` follows quite a rigorous approach: [no overwriting the rules](https://standardjs.com/index.html#i-disagree-with-rule-x-can-you-change-it).
 
-> The whole point of standard is to save you time by avoiding 
-> [bikeshedding](https://www.freebsd.org/doc/en/books/faq/misc.html#bikeshed-painting) 
-> about code style. 
-> 
+> The whole point of standard is to save you time by avoiding
+> [bikeshedding](https://www.freebsd.org/doc/en/books/faq/misc.html#bikeshed-painting)
+> about code style.
+>
 > [Standard JS FAQ](https://standardjs.com/index.html#i-disagree-with-rule-x-can-you-change-it)
 
 And then its authors add:
 
-> Pro tip: Just use `standard` and move on. There are actual real problems 
+> Pro tip: Just use `standard` and move on. There are actual real problems
 > that you could spend your time solving! :P
 
 It still let you avoid some warnings if you explicitly ask it for:
@@ -314,13 +317,13 @@ It still let you avoid some warnings if you explicitly ask it for:
 > as you normally would if you used ESLint directly.
 
 ```javascript
-let str1 ="Turn off all rules on this line" // eslint-disable-line 
+let str1 ="Turn off all rules on this line" // eslint-disable-line
 let str2 = "Turn only specific rule on this line" // eslint-disable-line quotes
 ```
 
 Important part of working with `standard` are `globals`. Some of them may not be
-recognized by `standard`, so we have to make it understand what we do. For this 
-reason we set `globals` by one of methods: 
+recognized by `standard`, so we have to make it understand what we do. For this
+reason we set `globals` by one of methods:
  * putting a special comment on top of the file
  * adding globals to `standard` config in `package.json`
 
@@ -336,14 +339,14 @@ or
   // other settings
   "standard": {
     "globals": [ "fetch" ]
-  }
+  },
   // other settings
 }
 ```
 
 📝 Globals introduced by some libraries (like `describe` or `expect` populated
-into global scope by `jest` test framework) can be handled via yet another 
-configuration pattern shown in the next chapter of the tutorial. 
+into global scope by `jest` test framework) can be handled via yet another
+configuration pattern shown in the next chapter of the tutorial.
 
 
 ## 03 Documentation
@@ -384,7 +387,7 @@ js files in `doc/` folder.
     "ignore": [
       "doc/"
     ]
-  }
+  },
   // other settings
 }
 ```
@@ -398,7 +401,7 @@ In VS Code exclude `doc` folder in search settings.
   "search.exclude": {
     "**/node_modules": true,
     "**/doc": true
-  }
+  },
   // other settings
 }
 ```
@@ -427,7 +430,7 @@ Your project structure should look like so:
 
 With transpiler, linter and documentation generator we're finally ready to go!
 
-### 📖 Resources 
+### 📖 Resources
  * [ESDoc official website](https://esdoc.org/)
 
 ### 🔍 Extras
