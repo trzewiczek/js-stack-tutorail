@@ -9,16 +9,16 @@
 > —[Redux Official Website](http://redux.js.org/)
 
 Quote above makes it clear: Redux is not related to React and is not a frontend
-framework. It's a library with a bunch of conventions to make state management 
-in JavaScript apps easy to work with and reason about. It works smoothly with 
-React, but it works fine with console apps, Angular, and whatever you find it 
-suitable for. It might as well be possible that [You Might Not Need Redux](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367). 
+framework. It's a library with a bunch of conventions to make state management
+in JavaScript apps easy to work with and reason about. It works smoothly with
+React, but it works fine with console apps, Angular, and whatever you find it
+suitable for. It might as well be possible that [You Might Not Need Redux](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367).
 
-First, let's start with a few facts about key Redux elements that will let you 
+First, let's start with a few facts about key Redux elements that will let you
 better understand how things talk one to another within Redux realm.
 
 **Store**
- * a single JavaScript object representing application state wrapped by some 
+ * a single JavaScript object representing application state wrapped by some
    minimal `redux` interface (namely four methods!)
  * a single source of truth about the application and its state
  * keeps both data state (i.e. list of todos) and app state (i.e. sort order of todos)
@@ -76,11 +76,11 @@ better understand how things talk one to another within Redux realm.
 ```
 
 **Reducer**
- * a [pure function](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-pure-function-d1c076bec976) 
+ * a [pure function](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-pure-function-d1c076bec976)
    that transforms current store's state into next state using action payload
  * it's signature is: `(state = <default state>, action) => state`
  * [called every time store dispatches an action](https://github.com/reactjs/redux/blob/master/src/createStore.js#L170)
- * if default value for state argument is defined the value will initialize the 
+ * if default value for state argument is defined the value will initialize the
    state when the `store` is created
  * by convention `reducer`'s body is a single `switch` statement
  * if triggered by an event (`action.type`) it doesn't understand, returns `state` untouched
@@ -115,16 +115,16 @@ const reducer = (state = { todos: [], sort: { key: 'id', order: 'ASC' } }, actio
 }
 ```
 
-There are some other interesting concepts in Redux we will learn later into tutorial. 
-These three though create the core of what Redux is: 
+There are some other interesting concepts in Redux we will learn later into tutorial.
+These three though create the core of what Redux is:
 
  * a single `store`, `{ todos: ['Learn Yarn'] }`
  * dispatches `actions`, `{ type: 'ADD_TODO', text: 'Learn Redux' }`
  * which trigger pure `reducers`, `(state = { todos: [] }, action) => state`
  * aimed at transforming store's state, `case 'ADD_TODO': return { todos: [...state.todos, action.text ] }`
  * to its new shape, `{ todos: ['Learn Yarn', 'Learn Redux'] }`
- 
-That's it. 
+
+That's it.
 
 ### 🛠 Basic setup
 To the code! We start with installing `redux`:
@@ -136,8 +136,8 @@ To the code! We start with installing `redux`:
 Congratulations! We're done with setup. 🏆
 
 ### 🚀 In action I
-Before we do some real coding let's use the example from last bullet list 
-above to test if `redux` really works this way. 
+Before we do some real coding let's use the example from last bullet list
+above to test if `redux` really works this way.
 
 Create a `src` folder and put the unit test file inside:
 
@@ -147,8 +147,8 @@ Create a `src` folder and put the unit test file inside:
 ```
 
 From three elements mentioned above—store, action and reducer—it is `reducer` that
-actually does something (i.e. transforms old state into new state with action 
-payload). We'll start with it then. Good news is, it's a pure function which 
+actually does something (i.e. transforms old state into new state with action
+payload). We'll start with it then. Good news is, it's a pure function which
 makes it trivial to test. Let's collect the spec!
 
 Earlier we've mentioned four assumptions about each and every `reducer`:
@@ -235,10 +235,10 @@ describe('Todo List Reducer', () => {
 
 📝 It might surprize you that in scenario `should create a new state leaving an
 old one untouched` we compare initial state with expected. This is due to the
-fact that with JavaScript you never know what gets mutated behind the scenes. 
-For that reason we could use some immutable data structures like 
-[Immutable.js](http://redux.js.org/docs/recipes/UsingImmutableJS.html) 
-or make it super crazy safe when testing. 
+fact that with JavaScript you never know what gets mutated behind the scenes.
+For that reason we could use some immutable data structures like
+[Immutable.js](http://redux.js.org/docs/recipes/UsingImmutableJS.html)
+or make it super crazy safe when testing.
 
 As mentioned earlier:
  1. reducer's signature is `(state = <default>, action) => state`
@@ -299,7 +299,7 @@ And voila! Reducer works fine. 🎂
 But wait, it's just a pure function with a few conventions around its shape.
 Where's `redux`?
 
-It's here, in your REPL! (I've added numbering in pseudo-comments to refer to 
+It's here, in your REPL! (I've added numbering in pseudo-comments to refer to
 certain lines in the description below the listing)
 
 ```bash
@@ -331,26 +331,26 @@ certain lines in the description below the listing)
 ```
 
 Let's go through it step by step:
- 
- 1. We import both our `reducer` and `redux`.     
-    (Even `babel-node` doesn't let us use `import` statements, though it still 
+
+ 1. We import both our `reducer` and `redux`.
+    (Even `babel-node` doesn't let us use `import` statements, though it still
     let us use `export` statement in our `src/index` module.)
  2. We create a new `store` providing it our `reducer`. It gets a slim `redux`
     interface of 4 methods (`dispatch`, `subscribe', `getState` and `replaceReducer`)
  3. The store has been initialized with the default state value in our `reducer`. 🍾
- 4. Next we dispatch two 'ADD_TODO' actions and it turns out that each time the 
-    state is updated according to our expectations. 
+ 4. Next we dispatch two 'ADD_TODO' actions and it turns out that each time the
+    state is updated according to our expectations.
  5. Finally we dispatch an action our `reducer` doesn't understand, so it just
     passes without bothering the state. (good news: `redux` doesn't understand *corpo ipsum*!)
 
-Having proven `redux` works as promised we can start implementing 'a real app': 
-**a travel planner**! Don't forget to remove those `src/index*` guys before 
+Having proven `redux` works as promised we can start implementing 'a real app':
+**a travel planner**! Don't forget to remove those `src/index*` guys before
 we move on! 🚮
 
 ### 🚀 In action II
 So where to start with the **planner**? Probably with `actions`. Let's list
-them and let's take an enum kind of approach here. Instead of using plain 
-strings for action types we'll put them as constants in `src/actionTypes.js` 
+them and let's take an enum kind of approach here. Instead of using plain
+strings for action types we'll put them as constants in `src/actionTypes.js`
 file:
 
 ```javascript
@@ -360,19 +360,19 @@ export const REMOVE_TRAVEL = 'REMOVE_TRAVEL'
 export const RESCHEDULE_TRAVEL = 'RESCHEDULE_TRAVEL'
 ```
 
-It might look redundant at first but soon you'll want to keep all supported 
+It might look redundant at first but soon you'll want to keep all supported
 actions in one place. And you'll want to have constants instead of simple
 strings so your IDE warns you about the typos and runtime breaks when meets one.
 
 Remember that the `store` cares only if an action object has a `type` defined.
-Reducers on the other hand care only about the action types they recognize. 
+Reducers on the other hand care only about the action types they recognize.
 A typo in the action type could then lead to a long debugging session, because
 it would pass silently. Technically it's not a bug, system just doesn't support
-such an action. With all actions defined as constants IDE will immediately warn 
-you about the typo and runtime will break with grace. 
+such an action. With all actions defined as constants IDE will immediately warn
+you about the typo and runtime will break with grace.
 
 Back to **travel planner**! We've defined some events that can occur in our app.
-Let's now think how the action objects representing each event could look like. 
+Let's now think how the action objects representing each event could look like.
 
 ```javascript
 {
@@ -396,7 +396,7 @@ Let's now think how the action objects representing each event could look like.
 
 Can you imagine the app already?
 
-Now just like with the action types constants let's create a simple interface 
+Now just like with the action types constants let's create a simple interface
 over how the objects actually look like. We'll call it `action creators` and
 will use a snippet above to specify them in `src/actions.test.js` file:
 
@@ -470,10 +470,10 @@ export const rescheduleTravel = (id, date) => ({
 })
 ```
 
-We use some funky and very compact ES6 syntax here: 
+We use some funky and very compact ES6 syntax here:
 [object property shorthand](http://es6-features.org/#PropertyShorthand),
 [arrow functions](http://es6-features.org/#ExpressionBodies)
-and their [simplified object return syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#Returning_object_literals). 
+and their [simplified object return syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions#Returning_object_literals).
 
 But anyway! It's the 🃏 time:
 
@@ -498,7 +498,7 @@ All files       |      100 |      100 |      100 |      100 |                |
 Done in 3.15s.
 ```
 
-Works fine, so whenever we want to dispatch an action we can now use `action 
+Works fine, so whenever we want to dispatch an action we can now use `action
 creators` like this:
 
 ```javascript
@@ -508,8 +508,8 @@ store.dispatch(removeTravel(2))
 ```
 
 Having types of events that can occur in the system and the shape of action
-objects representing them we could probably think about the shape of state in 
-the store and some reducers to handle our actions.  
+objects representing them we could probably think about the shape of state in
+the store and some reducers to handle our actions.
 
 From our `action creators` implementation one can think that the shape of state
 could look something like:
@@ -541,20 +541,20 @@ case it could as well be a flat list like this one:
 ]
 ```
 
-What's more, we could probably simplify the implementation by removing `id` 
-thing—we could just use array indices. 
+What's more, we could probably simplify the implementation by removing `id`
+thing—we could just use array indices.
 
-Keeping in mind that for the current requirements (simply add, remove and 
-reschedule a single travel on a simple travel list) object-based version is way 
-too much, let's stay with it so we don't have to re-implement too much in the 
-next chapter. 
+Keeping in mind that for the current requirements (simply add, remove and
+reschedule a single travel on a simple travel list) object-based version is way
+too much, let's stay with it so we don't have to re-implement too much in the
+next chapter.
 
-Reducer! It has to handle three types of events: 
+Reducer! It has to handle three types of events:
  * ADD_TRAVEL
  * REMOVE_TRAVEL
  * RESCHEDULE_TRAVEL
 
-and its default state shape is simply `{ travels: [] }`. Let's 
+and its default state shape is simply `{ travels: [] }`. Let's
 `src/reducer.test.js` it!
 
 ```javascript
@@ -677,7 +677,7 @@ describe('Action creators', () => {
 })
 ```
 
-📝 In `RESCHEDULE_TRAVEL` case we could be 
+📝 In `RESCHEDULE_TRAVEL` case we could be
 [Using Object Spread Operator](http://redux.js.org/docs/recipes/UsingObjectSpreadOperator.html)
 and we will when we put all the plugins in place in `🔍 Extras` section below.
 
@@ -751,8 +751,8 @@ All files       |      100 |      100 |      100 |      100 |                |
 Done in 4.03s.
 ```
 
-Once again we got to the point where we can finally call for `redux` to put it 
-all together. 
+Once again we got to the point where we can finally call for `redux` to put it
+all together.
 
 But wait, isn't it only the store that we have to create to make `redux` full
 operational? Let's try. In `src/index.js` create a store, dispatch a few actions
@@ -819,62 +819,87 @@ And now we're finally ready to read the opening quote once again:
 >
 > —[Redux Official Website](http://redux.js.org/)
 
-That's why Redux is not related to React and is not a frontend framework. 
-It's a library with a bunch of conventions to make state management in 
+That's why Redux is not related to React and is not a frontend framework.
+It's a library with a bunch of conventions to make state management in
 JavaScript apps easy to work with and reason about.
 
-Does it make more sense now? I believe it might be disappointing that 
+Does it make more sense now? I believe it might be disappointing that
 we don't yet have any interface—be it CLI or GUI—for our **travel planner**
 and that the app seems just a half way in, but this is exactly what `redux`
 offers to us. 🤷‍♂️
 
 To sum it up: `redux` help us build event-driven apps by introducing a
-predictable state management based on an event dispatcher/listener. 
+predictable state management based on an event dispatcher/listener.
 
 In the next chapter we will introduce `redux-observables`—a smart
-middleware making `RxJS` talk with `redux`—to let us handle asynchronous 
-actions. 
+middleware making `RxJS` talk with `redux`—to let us handle asynchronous
+actions.
 
 ### 📖 Resources
  * [Getting started with Redux](https://egghead.io/courses/getting-started-with-redux)
-   is **the** video course to watch presented by Redux creator Dan Abramov. 
+   is **the** video course to watch presented by Redux creator Dan Abramov.
    It's 2 hours of the great foundation not only on how Redux works but
-   as well how it works behind the scene, i.e. what problems it builds 
-   abstraction over. 
- * [Redux official documentation](http://redux.js.org/docs/basics/) 
+   as well how it works behind the scene, i.e. what problems it builds
+   abstraction over.
+ * [Redux official documentation](http://redux.js.org/docs/basics/)
    which is very clear and informative. Starts with the basics and goes
    into more and more advanced concepts (e.g. using Immutable.js with redux).
  * [StackOverflow most voted `redux` questions](https://stackoverflow.com/questions/tagged/redux?sort=votes&pageSize=15)
-   including ones answered by Dan Abramov. It's definitely worth reading 
+   including ones answered by Dan Abramov. It's definitely worth reading
    through the top three Q/As on the list as they give a great insight into
    how `redux` work. These are:
-   
+
    Votes | Views | Link
    ------|-------|-----
    700+ | 150+k | [Why use Redux over Facebook Flux](https://stackoverflow.com/questions/32461229/why-use-redux-over-facebook-flux)
    350+ | 130+k | [How to dispatch a Redux action with a timeout?](https://stackoverflow.com/questions/35411423/how-to-dispatch-a-redux-action-with-a-timeout)
-   250+ | 50+k | [Why do we need middleware for async flow in Redux?](https://stackoverflow.com/questions/34570758/why-do-we-need-middleware-for-async-flow-in-redux)       
-   
-   The last one Q/A is probably best to read after making yourself a little familiar 
-   with `redux` middleware either in [the official documentation](http://redux.js.org/docs/advanced/Middleware.html) or in the `Extras` section 
+   250+ | 50+k | [Why do we need middleware for async flow in Redux?](https://stackoverflow.com/questions/34570758/why-do-we-need-middleware-for-async-flow-in-redux)
+
+   The last one Q/A is probably best to read after making yourself a little familiar
+   with `redux` middleware either in [the official documentation](http://redux.js.org/docs/advanced/Middleware.html) or in the `Extras` section
    below.
 
 ### 🔍 Extras
+#### Spread operator
+Object spread operator is a useful piece of ES6 that still waits its full
+implementation. For that reason we have to deal with it with help of `babel`
+plugin.
+
+First let's install missing plugin:
+
+```bash
+[js-stack-tutorail]$ yarn add --dev babel-plugin-transform-object-rest-spread
+```
+
+Next we have to make `babel` aware of it by editing `.babelrc` file:
+
+```javascript
+{
+  // other settings
+  plugins: [
+    "transform-object-rest-spread"
+  ],
+  // other settings
+}
+```
+
+Now we're ready to go.
+
 #### combineReducers
 Earlier in the tutorial we've said that the store could be an Array or an Object
 or any other thing JavaScript provides us. And we've decided to use an Object
 even we knew that at this stage of the app development we didn't need that. And
-it was for reason. 
+it was for reason.
 
-We could imagine that soon besides our `travels` we'd like to keep user info in 
-the store. We would probably store it as a separate branch of the state object, 
+We could imagine that soon besides our `travels` we'd like to keep user info in
+the store. We would probably store it as a separate branch of the state object,
 e.g.:
 
 ```javascript
 {
   user: {
     lastActive: 1491553832020,
-    accessToken: "7f58ad1091f50b1437265164c41a09bb" 
+    accessToken: "7f58ad1091f50b1437265164c41a09bb"
   },
   travels: [
     { id: 8, destination: 'Mar-A-Lago, FL', date: '2017-12-31' }
@@ -884,10 +909,10 @@ e.g.:
 
 We could maintain this object in our reducer, but soon our switch case would grow
 too big and it would have to incorporate some logic to maintain each of the state's
-branches. 
+branches.
 
 `Redux` makes it much easier with `combineReducers`. It's a function that collects
-reducers and create a combo-reducer populating the state object with `reducer` 
+reducers and create a combo-reducer populating the state object with `reducer`
 becoming a separate branch of the state tree:
 
 ```javascript
@@ -931,10 +956,10 @@ console.log('--> Right after store creation')
 console.log(store.getState())
 console.log()
 
-store.dispatch({ 
-  type: 'LOGIN_SUCCESS', 
-  timestamp: 1491553832020, 
-  accessToken: '7f58ad1091f50b1437265164c41a09bb' 
+store.dispatch({
+  type: 'LOGIN_SUCCESS',
+  timestamp: 1491553832020,
+  accessToken: '7f58ad1091f50b1437265164c41a09bb'
 })
 console.log('--> After logging the user')
 console.log(store.getState())
@@ -944,7 +969,7 @@ console.log()
 store.dispatch({
   type: 'ADD_TRAVEL',
   id: 1,
-  destination: 'North Wales, UK', 
+  destination: 'North Wales, UK',
   date: '2017-09-16'
 })
 
@@ -954,11 +979,11 @@ console.log()
 ```
 
 Please note that `travels` reducer now operates on an `Array`, not an `Object`,
-but it's still populated in the store under `travels` key. This is due to the 
+but it's still populated in the store under `travels` key. This is due to the
 [logic behind `combineReducers`](https://github.com/reactjs/redux/blob/master/src/combineReducers.js#L86)
 function. And as you see the `state` argument is now easier to operate with
 as it's scoped only to what matters to the `travels` reducer and not the whole
-state object. 
+state object.
 
 Let's try it with `yarn`:
 
@@ -969,7 +994,7 @@ $ babel-node src
 --> Right after store creation
 { user: {}, travels: [] }
 
---> After logging the user  
+--> After logging the user
 { user:
    { lastActive: 1491553832020,
      accessToken: '7f58ad1091f50b1437265164c41a09bb' },
@@ -984,7 +1009,7 @@ Done in 1.72s.
 ```
 
 `combineReducers` is a simple yet nitro-powered function helping to preserve
-a clean and modular architecture. 
+a clean and modular architecture.
 ️
 #### middleware
 ✍️
