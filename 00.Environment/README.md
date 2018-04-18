@@ -215,7 +215,7 @@ and warning falls upon making it easier to tweak `standard` behavior.
 
 Before we continue let's set up our IDE, so it helps us keep the `standard`!
 Good for us `standard` has a great support in VS Code. Just hit `Ctrl+P`,
-paste `ext install vscode-standardjs`, hit `Enter` and install
+paste `ext install chenxsan.vscode-standardjs`, hit `Enter` and install
 `JavaScript Standard Style` plugin. Easy.
 
 To make it really funky set its `autoFixOnSave` option to `true` in your
