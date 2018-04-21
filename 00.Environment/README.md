@@ -215,11 +215,12 @@ and warning falls upon making it easier to tweak `standard` behavior.
 
 Before we continue let's set up our IDE, so it helps us keep the `standard`!
 Good for us `standard` has a great support in VS Code. Just hit `Ctrl+P`,
-paste `ext install vscode-standardjs`, hit `Enter` and install
+paste `ext install chenxsan.vscode-standardjs`, hit `Enter` and install
 `JavaScript Standard Style` plugin. Easy.
 
 To make it really funky set its `autoFixOnSave` option to `true` in your
-VS Code settings file:
+VS Code settings file. To do that select File -> Preferences -> Settings or hit `Ctrl+,`. 
+In the `USER SETTINGS` section paste `"standard.autoFixOnSave": true,` in the curly brackets.
 
 ```javascript
 // vscode settings
@@ -227,6 +228,15 @@ VS Code settings file:
   // other settings
   "standard.autoFixOnSave": true,
   // other settings
+}
+```
+
+Remember to delete the comma if it's the last setting:
+```javascript
+// vscode settings
+{
+  // other settings
+  "standard.autoFixOnSave": true
 }
 ```
 

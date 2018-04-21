@@ -336,7 +336,7 @@ Let's go through it step by step:
     (Even `babel-node` doesn't let us use `import` statements, though it still
     let us use `export` statement in our `src/index` module.)
  2. We create a new `store` providing it our `reducer`. It gets a slim `redux`
-    interface of 4 methods (`dispatch`, `subscribe', `getState` and `replaceReducer`)
+    interface of 4 methods (`dispatch`, `subscribe`, `getState` and `replaceReducer`)
  3. The store has been initialized with the default state value in our `reducer`. 🍾
  4. Next we dispatch two 'ADD_TODO' actions and it turns out that each time the
     state is updated according to our expectations.
